@@ -1,0 +1,52 @@
+evaluationDependsOn(':')
+
+dependencies {
+
+    testCompile (
+            project(":alfi-example-core-code"),
+            project(":alfi-example-core-code").sourceSets.test.output,
+            "org.slf4j:slf4j-api:$slf4jVersion",
+            "org.slf4j:jcl-over-slf4j:$slf4jVersion",
+            "org.slf4j:log4j-over-slf4j:$slf4jVersion",
+            "ch.qos.logback:logback-classic:$logbackVersion",
+            "ch.qos.logback:logback-core:$logbackVersion",
+            "org.assertj:assertj-core:$assertJVersion",
+            "junit:junit:$junitVersion",
+            "com.tngtech.java:junit-dataprovider:$junitDataproviderVersion",
+            "org.mockito:mockito-core:$mockitoVersion",
+            "io.rest-assured:rest-assured:$restAssuredVersion"
+    )
+}
+
+test {
+    // Exclude functional tests by default - force functional tests to run only via the functionalTest task
+    exclude '**/functionaltest/**'
+}
+
+task functionalTest(type: Test, dependsOn: "testClasses") {
+    description = "This is a task to run Functional Tests"
+    include '**/functionaltest/**'
+
+    testLogging {
+        exceptionFormat "FULL"
+        events "started", "passed", "skipped", "failed", "standardOut", "standardError"
+        displayGranularity = 0
+    }
+
+    doFirst {
+        String remoteTestEnv = System.getProperty('remoteTestEnv')
+        if (remoteTestEnv == null) {
+            throw new GradleException('ERROR: You must specify the remoteTestEnv System property when running ' +
+                                      'functional tests. Valid options are: local, test, or prod. e.g. -DremoteTestEnv=test')
+        }
+
+        systemProperties.putAll(System.getProperties())
+        // Hack to fix jacoco blowing up our tests
+        // See https://discuss.gradle.org/t/getting-classnotfoundexception-org-jacoco-agent-rt-internal-9dd1198-premain-with-1-7s-jacoco-plugin/1444
+        // See also https://issues.gradle.org/browse/GRADLE-2859
+        systemProperties['user.dir'] = workingDir
+    }
+
+    // Force this task to always run when specified (i.e. prevent gradle from saying "this task is up-to-date so I don't need to run it")
+    outputs.upToDateWhen { false }
+}
