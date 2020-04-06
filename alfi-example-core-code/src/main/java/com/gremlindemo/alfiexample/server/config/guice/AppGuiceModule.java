@@ -32,7 +32,6 @@ import com.gremlindemo.alfiexample.endpoints.HealthCheckEndpoint;
 import com.gremlindemo.alfiexample.error.ProjectApiErrorsImpl;
 import com.typesafe.config.Config;
 
-import jdk.jfr.Name;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -261,7 +260,7 @@ public class AppGuiceModule extends AbstractModule {
 
     @Provides
     @Singleton
-    @Name("gremlinService")
+    @Named("gremlinService")
     public GremlinService gremlinService() {
         return gremlinServiceFactory(gremlinCoordinatesProvider()).getGremlinService();
     }

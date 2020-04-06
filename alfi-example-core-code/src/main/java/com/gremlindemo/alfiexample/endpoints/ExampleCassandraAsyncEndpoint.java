@@ -63,7 +63,7 @@ public class ExampleCassandraAsyncEndpoint extends StandardEndpoint<Void, String
     private final GremlinService gremlinService;
 
     @Inject
-    public ExampleCassandraAsyncEndpoint(@Named("disableCassandra") Boolean disableCassandra, GremlinService gremlinService) {
+    public ExampleCassandraAsyncEndpoint(@Named("disableCassandra") Boolean disableCassandra, @Named("gremlinService") GremlinService gremlinService) {
         this.disableCassandra = disableCassandra;
         this.gremlinService = gremlinService;
 

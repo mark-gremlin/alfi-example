@@ -1,10 +1,5 @@
 evaluationDependsOn(':')
-repositories {
-    mavenCentral()
-    maven {
-        url "https://maven.gremlin.com"
-    }
-}
+
 dependencies {
     compile(
             "com.nike.riposte:riposte-spi:$riposteVersion",

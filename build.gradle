@@ -47,6 +47,10 @@ allprojects {
     // Define the repos used for finding dependencies.
     repositories {
         jcenter()
+        mavenCentral()
+        maven {
+            url "https://maven.gremlin.com"
+        }
     }
 
     test {

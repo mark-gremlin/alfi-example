@@ -15,6 +15,7 @@ import java.util.concurrent.Executor;
 import io.netty.channel.ChannelHandlerContext;
 
 import javax.inject.Inject;
+import javax.inject.Named;
 
 /**
  * Dummy health check endpoint. This will immediately respond with a 200 HTTP status code. It will let you know when
@@ -29,7 +30,7 @@ public class HealthCheckEndpoint extends StandardEndpoint<Void, Void> {
     private final GremlinService gremlinService;
 
     @Inject
-    public HealthCheckEndpoint(GremlinService gremlinService) {
+    public HealthCheckEndpoint(@Named("gremlinService") GremlinService gremlinService) {
 
         this.gremlinService = gremlinService;
     }

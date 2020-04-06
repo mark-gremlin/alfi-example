@@ -40,7 +40,8 @@ public class ExampleProxyRouterEndpoint extends SimpleProxyRouterEndpoint {
     @Inject
     public ExampleProxyRouterEndpoint(@Named("endpoints.port") int httpPort,
                                       @Named("endpoints.sslPort") int httpsPort,
-                                      @Named("endpoints.useSsl") boolean useSecure, GremlinService gremlinService) {
+                                      @Named("endpoints.useSsl") boolean useSecure,
+                                      @Named("gremlinService") GremlinService gremlinService) {
         super(Matcher.match("/exampleProxy"),
               "localhost",
               (useSecure) ? httpsPort : httpPort,

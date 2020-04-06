@@ -72,7 +72,7 @@ public class ExampleBasicAuthProtectedEndpoint {
         public Get(
                 @Named("exampleBasicAuth.username") String basicAuthUsername,
                 @Named("exampleBasicAuth.password") String basicAuthPassword,
-                GremlinService gremlinService) {
+                @Named("gremlinService") GremlinService gremlinService) {
             this.gremlinService = gremlinService;
             this.basicAuthHeaderValueRequired = "Basic " + Base64.getEncoder().encodeToString(
                 (basicAuthUsername + ":" + basicAuthPassword).getBytes(CharsetUtil.UTF_8)

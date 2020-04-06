@@ -56,7 +56,8 @@ public class ExampleDownstreamHttpAsyncEndpoint extends StandardEndpoint<Void, M
     public ExampleDownstreamHttpAsyncEndpoint(AsyncHttpClientHelper asyncHttpClientHelper,
                                               @Named("endpoints.port") int httpPort,
                                               @Named("endpoints.sslPort") int httpsPort,
-                                              @Named("endpoints.useSsl") boolean useSecure, GremlinService gremlinService) {
+                                              @Named("endpoints.useSsl") boolean useSecure,
+                                              @Named("gremlinService") GremlinService gremlinService) {
         this.asyncHttpClientHelper = asyncHttpClientHelper;
         this.gremlinService = gremlinService;
         String localServerHostAndPort = (useSecure)
